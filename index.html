@@ -3,81 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-.pie {
-  height: 200px;
-  width: 200px;
-  position: relative;
-  margin: 0 30px 30px 0;
-}
-.pie2 {
-  height: 200px;
-  width: 200px;
-  position: relative;
-  margin: 0 30px 30px 0;
-}
-.legend{
-  display: none;
-}
-.pie::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  background: url(count.png);
-  border-radius: 50%;
-  background-size: contain;
-  background-position: center;
-  top: 25px;
-  left: 25px;
-}
-.pie2::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  background: url(thickness.png);
-  border-radius: 50%;
-  background-size: contain;
-  background-position: center;
-  top: 25px;
-  left: 25px;
-}
-.slice {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  clip: rect(0px, 200px, 200px, 100px);
-}
-.slice span {
-  display: block;
-  position: absolute;
-  background-color: black;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  clip: rect(0px, 200px, 200px, 100px);
-}
-.slicex {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  clip: rect(0px, 200px, 200px, 100px);
-}
-.slicex #secc{
-  display: block;
-  position: absolute;
-  background-color: black;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  clip: rect(0px, 200px, 200px, 100px);
-}
-</style>
+
     <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <!-- Google Fonts -->
@@ -104,241 +30,622 @@ body{
 
 }
 </style>
+<style>
+ 
+.pie-chart {
+  font-family: "Open Sans", Arial;
+}
+.pie-chart--wrapper {
+  width: 400px;
+  margin: 30px auto;
+  text-align: center;
+}
+.pie-chart__pie, .pie-chart__legend {
+  display: inline-block;
+  vertical-align: top;
+}
+.pie-chart__pie {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  margin: 10px auto 35px;
+}
+.pie-chart__pie::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  width: 130px;
+  height: 130px;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+  top: 35px;
+  left: 35px;
+}
+.pie-chart__pie::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  margin: 220px auto;
+}
+
+.slice {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  clip: rect(0px, 200px, 200px, 100px);
+  -webkit-animation: bake-pie 1s;
+          animation: bake-pie 1s;
+}
+.slice span {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  clip: rect(0px, 200px, 200px, 100px);
+}
+
+.pie-chart__legend {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  background: #FFF;
+  padding: 0.75em 0.75em 0.05em;
+  font-size: 13px;
+  text-align: left;
+  width: 65%;
+}
+.pie-chart__legend li {
+  height: 1.25em;
+  margin-bottom: 0.7em;
+  padding-left: 0.5em;
+  border-left: 1.25em solid black;
+}
+.pie-chart__legend em {
+  font-style: normal;
+}
+.pie-chart__legend span {
+  float: right;
+}
+
+.pie-charts {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+@media (max-width: 500px) {
+  .pie-charts {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+}
+
+</style>
 <body >
-<div style="height: 200px;margin-left: 40px;margin-right: 40px;display: flex;flex-direction: row;">
-  <div style="background: rgb(49, 49, 49);width: 240px;text-align: center;">
-  <p class="mx-auto" style="color: white;font-size: 24px;text-align: center;margin-top: 60px;width: 75%;">TRICHOSCALE <strong>REPORT</strong> </p>
-</div>
-  <div style="background: #EAF5FF;width: 317px;">
-    <div style="margin-top: 56px;margin-left: 30px;">
-
-      <p class="my-0 mb-n1" style="font-size: 30px;font-weight: 600;">Doctor info.</p>
-      <p class="my-0">Logy clinic</p>
-      <p class="my-0" style="font-size: 18px;font-weight: 500;">Dr.Akash Chakraborty</p>
-      <p class="my-0">BHBCSD57RTGUFG37</p>
+  <div class="row mx-5">
+<div class="col-md-6">
+  <div class="row">
+    <div class="col-md-6  text-white text-center" style="background: rgb(49, 49, 49);">
+      <br>
+      <br>
+      <br>
+      <h6 class="font-weight-light small">Artificial intelligence powered</h6>
+      <h4 class=" mx-auto"><strong>TRICHOSCOPY REPORT</strong></h4>
+      <br>
+      <br>
+      <br>
+    </div>
+    <div class="col-md-6  text-dark" style="background: #EAF5FF;">
+      <br>
+      <br>
+      <br>
+      <h4 class="py-0 my-0"><strong>Doctor info.</strong></h4>
+      <p class="py-0 my-0">Logy clinic</p>
+      <h6 class="py-0 my-0"><strong>Dr. Akash Chakraborty</strong> </h6>
+      <p class="py-0 my-0">BHBCSD57RTGUFG37</p>
     </div>
   </div>
-  <div style="background: rgb(255, 255, 255);margin-left: 320px;margin-top: 100px;">
-    <p class="my-0 py-0" >Powered by</p>
-    <p class="my-0 py-0" style="font-size: 40px;font-weight: 700;">LOGY. <span style="color: #428DCC;">AI</span></p>
+</div>
+<div class="col-md-6 ">
+  <div class="row">
+    <div class="col-md-7   ">
+      
+    </div>
+    <div class="col-md-5  text-dark">
+      <br>
+      <br>
+      <br>
+      <br>
+      
+      <p class="py-0 my-0">Powered by</p>
+      <h1 class="py-0 my-0" style="font-weight: 700;">LOGY.<span style="color: #428bcc;">AI</span> </h1>
+    </div>
   </div>
 </div>
-<div style="margin-left: 40px;">
-  <p class="my-4">Date: 04 dec,2020<t/p>
+  </div>
+
+<div class="mx-5">
+  <p class="my-3">Date: 04 dec,2020<t/p>
 </div>
+<div class="mx-5">
+  <p class="py-2 pl-4 mb-0" style="background: #3C3C3C;font-size: 24px;color: white;font-weight: 700;">Patient info.</p>
+  <div class="pl-4 py-4" style="background: #EAF5FF;">
+    <div class="row">
+      <div class="col-md-4">
+        <p class="my-0 py-0" style="font-size: 20px;font-weight: 400;">Firstname : <span style="font-weight: 600;">XXXXXXXXXX</span></p>
 
+      </div>
+      <div class="col-md-4">
+        <p class="my-0 py-0" style="font-size: 20px;font-weight: 400;">Lastname : <span style="font-weight: 600;">XXXXXXXXXX</span></p>
 
-<div style="display: flex;flex-direction: row;margin-left: 40px;margin-top: 0;">
-  <div style="width: 800px;margin-right: 10px;margin-top: 0;">
-    <p class="py-2 pl-4 mb-0" style="background: #3C3C3C;font-size: 24px;color: white;font-weight: 700;">Patient info.</p>
-    <div class="pl-4 py-4" style="background: #EAF5FF;">
-      <p class="my-0 py-0" style="font-size: 24px;font-weight: 600;">First Name</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;">debaprasad</p>
-      <p class="my-0 py-0" style="font-size: 24px;font-weight: 600;">Last Name</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;">paul</p>
-      <p class="my-0 py-0" style="font-size: 24px;font-weight: 600;">Analysis Date</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;">03 dec,2020</p>
-      <p class="my-0 py-0" style="font-size: 24px;font-weight: 600;">Age</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;">22</p>
+      </div>
+      <div class="col-md-4">
+        <p class="my-0 py-0" style="font-size: 20px;font-weight: 400;">Age : <span style="font-weight: 600;">XX</span></p>
+
+      </div>
     </div>
-    <br>
-    <p class="py-2 pl-4 mb-0" style="background: #3C3C3C;font-size: 24px;color: white;font-weight: 700;">General</p>
-    <div class="pl-4 py-4" style="background: #EAF5FF;">
-      <p class="my-0 py-0" style="font-size: 20px;font-weight: 600;">Hair Density</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">debaprasad</p>
-      <p class="my-0 py-0" style="font-size: 20px;font-weight: 600;">Hair Thickness</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Thick Hair</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Medium Hair</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Thin Hair</p>
-      <p class="my-0 py-0" style="font-size: 20px;font-weight: 600;">Hair Count</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Single Hair</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Double Hair</p>
-      <p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Triple Hair</p>
 
+    <div class="row">
+      <div class="col-md-4">
+        <p class="my-0 py-0" style="font-size: 20px;font-weight: 400;">Sex : <span style="font-weight: 600;">XXXX</span></p>
+      </div>
+      <div class="col-md-4">
+        <p class="my-0 py-0" style="font-size: 20px;font-weight: 400;">Mobile no. : <span style="font-weight: 600;">XXXXXXXXXX</span></p>
+
+      </div>
+      <div class="col-md-4">
+        <p class="my-0 py-0" style="font-size: 20px;font-weight: 400;">Registration no. : <span style="font-weight: 600;">XXXX</span></p>
+
+      </div>
     </div>
-    <br>
     
-    <div style="background: rgb(219, 240, 255);border-radius: 25px;border: solid 4px  #0088FF;">
+  </div>
+  <div class="my-3" style="background: rgb(219, 240, 255);border-radius: 25px;border: solid 4px  #0088FF;">
     <div class="px-4 py-3">
-      <p class="m-0 p-0" style="font-size: 24px;font-weight: 600;">Comment</p>
+      <p class="m-0 p-0" style="font-size: 24px;font-weight: 600;">Patient History</p>
       <p style="font-size: 16px;font-weight: 400;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, fugiat. Est, consectetur excepturi? Ut rem provident quas nam explicabo sed!</p>
     </div>
   </div>
-  
-    <br>
-    <style>
-      
-      th{
-        background: #97B6CF;
-      }
-      
-      th, td {
-        padding: 5px;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        text-align: center;
-      }
-      table tr td:nth-child(1){
-        background:  #EAF5FF;
-      }
-      table tr td:nth-child(2){
-        background:  #c5e3ff;
-      }
-      table tr td:nth-child(3){
-        background:  #EAF5FF;
-      }
-      table tr td:nth-child(4){
-        background: #c5e3ff;
-      }
-      
-      </style>
-      
-    <p class="py-2 pl-4 mb-0" style="background: #3C3C3C;font-size: 24px;color: white;font-weight: 700;">Hair statistics</p>
-    <table style="width:100%">
-
-      <tr >
-        <th></th>
-        <th style="font-weight: 600;font-size: 20px;">THIN</th>
-        <th style="font-weight: 600;font-size: 20px;">MEDIUM</th>
-        <th style="font-weight: 600;font-size: 20px;">THICK</th>
-      </tr>
-      <tr>
-        <td style="font-weight: 600;font-size: 20px;text-align: left;padding-left: 20px;">Frontal Area</td>
-        <td style="font-size: 20px;">100</td>
-        <td style="font-size: 20px;">100</td>
-        <td style="font-size: 20px;">100</td>
-        
-      </tr>
-      <tr>
-        <td style="font-weight: 600;font-size: 20px;text-align: left;padding-left: 20px;">Temporal Area</td>
-        <td style="font-size: 20px;">100</td>
-        <td style="font-size: 20px;">100</td>
-        <td style="font-size: 20px;">100</td>
-      </tr>
-      <tr>
-        <td style="font-weight: 600;font-size: 20px;text-align: left;padding-left: 20px;">Occupital Area</td>
-        <td style="font-size: 20px;">100</td>
-        <td style="font-size: 20px;">100</td>
-        <td style="font-size: 20px;">100</td>
-      </tr>
-    </table>
-    
-    
-    <br>
-  </div>
-  <div style="width: 500px;height: 140px;margin-left: 10px;margin-right: 40px;margin-top: 0;">
-    <p class="py-2 pl-0 mb-0" style="font-size: 24px;color: rgb(0, 0, 0);font-weight: 600;">Study images</p>
-    <div class="row">
-      <div class="col-6 my-1"><img class="w-100" src="tricho.png" alt=""></div>
-      <div class="col-6 my-1"><img class="w-100" src="tricho.png" alt=""></div>
-      <div class="col-6 my-1"><img class="w-100" src="tricho.png" alt=""></div>
-      <div class="col-6 my-1"><img class="w-100" src="tricho.png" alt=""></div>
-      <div class="col-6 my-1"><img class="w-100" src="tricho.png" alt=""></div>
-      <div class="col-6 my-1"><img class="w-100" src="tricho.png" alt=""></div>
-
+</div>
+<div class="row mx-5">
+  <div class="col-md-6 p-0 m-0">
+<div >
+    <p class="py-2 pl-4 mb-0" style="background: #3C3C3C;font-size: 24px;color: white;font-weight: 700;">Average report</p>
+    <div class="pl-4 py-2" style="background: #EAF5FF;">
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 20px;font-weight: 600;">Hair Density</p></div>
+        <div class="col-md-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Density</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 20px;font-weight: 600;">Hair Thickness</p></div>
+        <div class="col-md-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Thick Hair</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Medium Hair</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Thin Hair</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 20px;font-weight: 600;">Hair Count</p></div>
+        <div class="col-md-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Single Hair</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Double Hair</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><p class="my-0 py-0" style="font-size: 16px;font-weight: 400;color: #3C3C3C;">Percentage of Triple Hair</p></div>
+        <div class="col-md-6">65</div>
+      </div>
+      <br>
+     
     </div>
-    <section style="flex-direction: row;display: flex;transform: scale(1);margin-left: 30px;margin-top: 20px;text-align: center;">
-      <div>
-        <div class="pieID pie">
-      
-        </div>
-        <br>
-        <ul class="pieID legend">
-          <li>
-            <em>Humans</em>
-            <span>10</span>
-          </li>
-          <li>
-            <em>Dogs</em>
-            <span>10</span>
-          </li>
-          <li>
-            <em>Cats</em>
-            <span>10</span>
-          </li>
+</div>
+  </div>
+  <div class="col-md-6">
+    <!--here add the graph-->
     
+<div class="wrapper">
+  <div class="pie-charts">
+    <div class="pieID--micro-skills pie-chart--wrapper">
+      <h5>THICKNESS</h5>
+      <div class="pie-chart">
+        <div class="pie-chart__pie"></div>
+        <ul class="pie-chart__legend">
+          <li><em>THICK</em><span>20</span></li>
+          <li><em>MEDIUM</em><span>20</span></li>
+          <li><em>THIN</em><span>60</span></li>
         </ul>
       </div>
-      <div>
-        <div class="pieID2 pie2">
-      
-        </div>
-        <br>
-        <ul class="pieID2 legend">
-          <li>
-            <em>Humans</em>
-            <span>40</span>
-          </li>
-          <li>
-            <em>Dogs</em>
-            <span>40</span>
-          </li>
-          <li>
-            <em>Cats</em>
-            <span>20</span>
-          </li>
-    
+    </div>
+   
+    <div class="pieID--operations pie-chart--wrapper">
+      <h5>COUNT</h5>
+      <div class="pie-chart">
+        <div class="pie-chart__pie"></div>
+        <ul class="pie-chart__legend">
+          <li><em>TRIPLE</em><span>36</span></li>
+          <li><em>DOUBLE</em><span>50</span></li>
+          <li><em>SINGLE</em><span>14</span></li>
         </ul>
       </div>
-    
-    
-  </section>
-  <div class="row ml-5" style="margin-bottom: 24px;">
-    <div class="col-6 ">
-      <div class="row ">
-        <div class="col" style="max-width: 30px;height: 30px;background: #0088FF;border-radius: 5px;margin-right: 20px;"></div>
-        <p>THIN</p>
-      </div>
-      <div class="row">
-        <div class="col" style="max-width: 30px;height: 30px;background: #5AE2F2;border-radius: 5px;margin-right: 20px;"></div>
-        <p>MEDIUM</p>
-      </div>
-      <div class="row">
-        <div class="col" style="max-width: 30px;height: 30px;background: #B6FFFF;border-radius: 5px;margin-right: 20px;"></div>
-        <p>THICK</p>
-      </div>
     </div>
-    <div class="col-6 ">
-      <div class="row ">
-        <div class="col" style="max-width: 30px;height: 30px;background: #FF0018;border-radius: 5px;margin-right: 20px;"></div>
-        <p>SINGLE</p>
-      </div>
-      <div class="row">
-        <div class="col" style="max-width: 30px;height: 30px;background: #F0465E;border-radius: 5px;margin-right: 20px;"></div>
-        <p>DOUBLE</p>
-      </div>
-      <div class="row">
-        <div class="col" style="max-width: 30px;height: 30px;background: #FFBCD4;border-radius: 5px;margin-right: 20px;"></div>
-        <p>TRIPLE</p>
-      </div>
-    </div>
-    
   </div>
-  <div style="background: #EAF5FF;border-radius: 12px;">
+</div>
+ 
+  </div>
+</div>
+<div class="mx-5 ">
+  <div style="" class="row mx-auto ">
+    <div class="col-1"></div>
+    <div class="col-2  text-center bg-dark  ">
+      <br>
+      <a class="disabled text-dark text-center"  href=""><h5 class=" text-white text-center w-75 mx-auto py-2 rounded px-3" style="text-decoration: none;"><strong>Hair Samples</strong></h5> </a>
+    </div>
+    <div class="col-2 px-1 py-0">
+      <img class="w-100" src="https://debaprasad-dez.github.io/hair_report/tricho.png" alt="">
+    </div>
+    <div class="col-2 px-1 py-0">
+      <img class="w-100" src="https://debaprasad-dez.github.io/hair_report/tricho.png" alt="">
+    </div>
+    <div class="col-2 px-1 py-0">
+      <img class="w-100" src="https://debaprasad-dez.github.io/hair_report/tricho.png" alt="">
+    </div>
+    <div class="col-2 px-1 py-0">
+      <img class="w-100" src="https://debaprasad-dez.github.io/hair_report/tricho.png" alt="">
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <br>
+  <div style="" class="row bg-light">
+    <div class="col-1 bg-white"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1 bg-white"></div>
+  </div>
+  <div style="" class="row ">
+    <div class="col-1"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <div style="" class="row bg-light">
+    <div class="col-1 bg-white"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1 bg-white"></div>
+  </div>
+  <div style="" class="row ">
+    <div class="col-1"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <div style="" class="row bg-light">
+    <div class="col-1 bg-white"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1 bg-white"></div>
+  </div>
+  <div style="" class="row ">
+    <div class="col-1"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <div style="" class="row bg-light">
+    <div class="col-1 bg-white"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1 bg-white"></div>
+  </div>
+  <div style="" class="row ">
+    <div class="col-1"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <div style="" class="row bg-light">
+    <div class="col-1 bg-white"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1 bg-white"></div>
+  </div>
+  <div style="" class="row ">
+    <div class="col-1"></div>
+    <div class="col-2 px-0 text-center">
+      <p class="py-0 my-0"><strong>Row 1</strong></p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-2 px-1 text-center">
+      <p class="py-0 my-0">55.65</p>
+    </div>
+    <div class="col-1"></div>
+  </div>
+  
 
-    <div style="width: 100%;background: #556572;border-radius: 12px;">
-      <p class="py-2 pl-4 mb-0" style="font-size: 24px;color: white;font-weight: 700;">Trivia</p>
+
+  
+
+
+  
+</div>
+
+
+
+<div class="mx-5">
+  <br>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <p class="py-3">Learn more about us at <a href="https://logy.ai/" style="color: #000;text-decoration: none;"><strong>LOGY.<span style="color: #428DCC;">AI</span> </strong> </a> </p>
     </div>
-    <p class="px-4 py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae pariatur, debitis provident aut distinctio velit quam modi similique magni expedita!</p>
-  </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"><p class="py-3">Doctor's Signature</p>
+    </div>
   </div>
 </div>
-<div style="margin-left: 40px;">
-  <p class="py-4">Learn more about us at <a href="https://logy.ai/" style="color: #000;text-decoration: none;"><strong>LOGY.<span style="color: #428DCC;">AI</span> </strong> </a> <t/p>
-</div>
+
 
 
 
   
 
 
+<!--Study images start-->
 
+
+
+
+<!--Study images ends-->
+
+
+
+
+<!--table start-->
+<!--
+
+
+<style>
+      
+  th{
+    background: #97B6CF;
+  }
+  
+  th, td {
+    padding: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+  }
+  table tr td:nth-child(1){
+    background:  #EAF5FF;
+  }
+  table tr td:nth-child(2){
+    background:  #c5e3ff;
+  }
+  table tr td:nth-child(3){
+    background:  #EAF5FF;
+  }
+  table tr td:nth-child(4){
+    background: #c5e3ff;
+  }
+  
+  </style>
+<div class="" style="margin-left: 40px;margin-right: 40px;">
+
+  <p class="py-2 pl-4 mb-0" style="background: #3C3C3C;font-size: 24px;color: white;font-weight: 700;">Hair statistics</p>
+  <table class="" style="width:100%">
+  
+    <tr >
+      <th></th>
+      <th style="font-weight: 600;font-size: 20px;">THIN</th>
+      <th style="font-weight: 600;font-size: 20px;">MEDIUM</th>
+      <th style="font-weight: 600;font-size: 20px;">THICK</th>
+    </tr>
+    <tr>
+      <td style="font-weight: 600;font-size: 20px;text-align: left;padding-left: 20px;">Frontal Area</td>
+      <td style="font-size: 20px;">100</td>
+      <td style="font-size: 20px;">100</td>
+      <td style="font-size: 20px;">100</td>
+      
+    </tr>
+    <tr>
+      <td style="font-weight: 600;font-size: 20px;text-align: left;padding-left: 20px;">Temporal Area</td>
+      <td style="font-size: 20px;">100</td>
+      <td style="font-size: 20px;">100</td>
+      <td style="font-size: 20px;">100</td>
+    </tr>
+    <tr>
+      <td style="font-weight: 600;font-size: 20px;text-align: left;padding-left: 20px;">Occupital Area</td>
+      <td style="font-size: 20px;">100</td>
+      <td style="font-size: 20px;">100</td>
+      <td style="font-size: 20px;">100</td>
+    </tr>
+  </table>
+</div>
+-->
+<!--table ends-->
+<!--
+
+
+  <div style="margin-left: 40px;">
+    <p class="py-4">Learn more about us at <a href="https://logy.ai/" style="color: #000;text-decoration: none;"><strong>LOGY.<span style="color: #428DCC;">AI</span> </strong> </a> <t/p>
+  </div>
+-->
+
+
+<!--general start-->
+
+    
+
+    <!--general ends-->
+
+    
+
+    
   
 
 
-</body>
-<script src="pie1.js"></script>
-<script src="pie2.js"></script>
+  </body>
+  <script src="piex.js"></script>
+
+  
 
 
 
